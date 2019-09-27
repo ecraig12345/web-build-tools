@@ -1,7 +1,7 @@
 
 import * as path from 'path';
 import { PackageMetadataManager } from '../PackageMetadataManager';
-import { FileSystem, PackageJsonLookup, INodePackageJson } from '@microsoft/node-core-library';
+import { FileSystem, PackageJsonLookup, INodePackageJson, NewlineKind } from '@microsoft/node-core-library';
 
 /* tslint:disable:typedef */
 
@@ -21,7 +21,14 @@ describe('PackageMetadataManager', () => {
 
     it('writes the tsdoc metadata file at the provided path', () => {
       PackageMetadataManager.writeTsdocMetadataFile('/foo/bar');
-      expect(firstArgument(mockWriteFile)).toBe('/foo/bar');
+      expect(argumentAt(mockWriteFile, 0)).toBe('/foo/bar');
+    });
+
+    it('uses the specified newline kind', () => {
+      PackageMetadataManager.writeTsdocMetadataFile('/foo/bar', NewlineKind.Lf);
+      const fileContent: string = argumentAt(mockWriteFile, 1);
+      const newline: string = fileContent.match(/\r?\n/)![0];
+      expect(newline).toBe('\n');
     });
   });
 
@@ -133,6 +140,6 @@ function getPackageMetadata(testPackageName: string): { packageFolder: string, p
 }
 
 // tslint:disable-next-line:no-any
-function firstArgument(mockFn: jest.Mock): any {
-  return mockFn.mock.calls[0][0];
+function argumentAt(mockFn: jest.Mock, n: number): any {
+  return mockFn.mock.calls[0][n];
 }

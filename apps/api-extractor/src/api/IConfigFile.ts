@@ -1,6 +1,7 @@
 // Copyright (c) Microsoft Corporation. All rights reserved. Licensed under the MIT license.
 // See LICENSE in the project root for license information.
 
+import { NewlineKind } from '@microsoft/node-core-library';
 import { ExtractorLogLevel } from './ExtractorLogLevel';
 
 /**
@@ -347,6 +348,11 @@ export interface IConfigFile {
    * @beta
    */
   tsdocMetadata?: IConfigTsdocMetadata;
+
+  /**
+   * Specifies the type of newline to use in all generated files.
+   */
+  newlineKind?: NewlineKind;
 
   /**
    * {@inheritDoc IExtractorMessagesConfig}

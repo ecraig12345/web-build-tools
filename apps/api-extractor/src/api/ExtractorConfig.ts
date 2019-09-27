@@ -14,7 +14,8 @@ import {
   PackageName,
   Text,
   InternalError,
-  Path
+  Path,
+  NewlineKind
 } from '@microsoft/node-core-library';
 import {
   IConfigFile,
@@ -112,6 +113,7 @@ interface IExtractorConfigParameters {
   tsdocMetadataFilePath: string;
   messages: IExtractorMessagesConfig;
   testMode: boolean;
+  newlineKind: NewlineKind;
 }
 
 /**
@@ -196,6 +198,9 @@ export class ExtractorConfig {
 
   /** {@inheritDoc IConfigFile.testMode} */
   public readonly testMode: boolean;
+
+  /** {@inheritDoc IConfigFile.newlineKind} */
+  public readonly newlineKind: NewlineKind;
 
   private constructor(parameters: IExtractorConfigParameters) {
     this.projectFolder = parameters.projectFolder;
@@ -660,6 +665,7 @@ export class ExtractorConfig {
         omitTrimmingComments,
         tsdocMetadataEnabled,
         tsdocMetadataFilePath,
+        newlineKind: configObject.newlineKind || NewlineKind.CrLf,
         messages: configObject.messages || { },
         testMode: !!configObject.testMode
       });

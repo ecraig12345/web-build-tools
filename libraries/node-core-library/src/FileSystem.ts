@@ -36,7 +36,7 @@ export interface IFileSystemWriteFileOptions {
 
   /**
    * If specified, will normalize line endings to the specified style of newline.
-   * Defaults to `NewlineKind.None`.
+   * Defaults to `undefined` (no conversion).
    */
   convertLineEndings?: NewlineKind;
 
@@ -60,7 +60,7 @@ export interface IFileSystemReadFileOptions {
 
   /**
    * If specified, will normalize line endings to the specified style of newline.
-   * Defaults to `NewlineKind.None`.
+   * Defaults to `undefined` (no conversion).
    */
   convertLineEndings?: NewlineKind;
 }
